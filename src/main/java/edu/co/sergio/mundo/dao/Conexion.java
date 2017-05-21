@@ -31,8 +31,6 @@ public class Conexion {
  rs = null;
  sentencia.close();
  sentencia = null;
- conexion.close();
- conexion = null;
  
 } catch (ClassNotFoundException e) {
  
@@ -70,7 +68,8 @@ if (rs != null) {
          if(valido == true){
 			  	try {
 
-                                        conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/arquitecturajava","root","blog");                        	} catch (SQLException e) {
+                                        conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/arquitecturajava","root","blog");                        	
+                                } catch (SQLException e) {
 					System.out.println("Connection Failed! Check output console");
 					e.printStackTrace();
 				}
