@@ -5,31 +5,90 @@ import java.sql.*;
 
 public class Conexion {
 	
-	private static Connection CONEXION=null;
-    	public static Connection getConnection() throws URISyntaxException{
-            URI dbUri = new URI(System.getenv("DATABASE_URL"));
-            String username = dbUri.getUserInfo().split(":")[0];
-            String password = dbUri.getUserInfo().split(":")[1];
-            String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath();
-    
-		   if(CONEXION == null){
+	private static Connection conexion=null;
+        
+        
+    	public static Connection getConnection() throws URISyntaxException, ClassNotFoundException, SQLException{
+         
+        PreparedStatement sentencia = null;
+        ResultSet rs = null;   
+        boolean valido = false;
+        
+        try {
+            
+ URI dbUri = new URI(System.getenv("DATABASE_URL"));
+ Class.forName("com.mysql.jdbc.Driver");
+ String consulta = "select nombre from Usuarios where nombre =? and clave =?";
+ sentencia = conexion.prepareStatement(consulta);
+ sentencia.setString(1, dbUri.getUserInfo().split(":")[0]);
+ sentencia.setString(2, dbUri.getUserInfo().split(":")[1]);
+ String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath();
+ rs = sentencia.executeQuery();
+ if (rs.next())
+ valido = true;
+ 
+ rs.close();
+ rs = null;
+ sentencia.close();
+ sentencia = null;
+ conexion.close();
+ conexion = null;
+ 
+} catch (ClassNotFoundException e) {
+ 
+e.printStackTrace();
+ } catch (SQLException e) {
+ 
+e.printStackTrace();
+ } finally {
+ 
+if (rs != null) {
+ try {
+ rs.close();
+ } catch (SQLException e) {
+ //log
+ }
+ rs = null;
+ }
+ if (sentencia != null) {
+ try {
+ sentencia.close();
+ } catch (SQLException e) {
+ //log
+ }
+ sentencia = null;
+ }
+ if (conexion != null) {
+ try {
+ conexion.close();
+ } catch (SQLException e) {
+ //log
+ }
+ conexion = null;
+ }
+ }
+         if(valido == true){
 			  	try {
-					CONEXION = DriverManager.getConnection(dbUrl, username, password);
-                        	} catch (SQLException e) {
+
+                                        conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/arquitecturajava","root","blog");                        	} catch (SQLException e) {
 					System.out.println("Connection Failed! Check output console");
 					e.printStackTrace();
 				}
 
 				
 		   }
-		   return CONEXION;
-	}
+ 
+		   return conexion;
+ 
+}
+            
+	
 	
 	public static void closeConnection(){
 		 try {
-			 if(CONEXION!=null){
-				 CONEXION.close();
-				 CONEXION=null;
+			 if(conexion!=null){
+				 conexion.close();
+				 conexion=null;
 			 }
 			 
 			} catch (SQLException e) {

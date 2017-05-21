@@ -17,7 +17,7 @@ import java.util.logging.Logger;
  * @author Fabian Giraldo
  */
 public class CreateDataBase {
-     public static void run(){
+     public static void run() throws ClassNotFoundException{
           String sql = "CREATE TABLE Depto(id_depto integer,nom_depto varchar(40), PRIMARY KEY(id_depto))";
           Connection connection = null;
             try {

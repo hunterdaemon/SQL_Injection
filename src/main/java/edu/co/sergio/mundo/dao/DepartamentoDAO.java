@@ -40,6 +40,10 @@ public class DepartamentoDAO implements IBaseDatos<Departamento> {
                 connection = Conexion.getConnection();
             } catch (URISyntaxException ex) {
                 Logger.getLogger(DepartamentoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(DepartamentoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(DepartamentoDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
 	    try {
 	    Statement st = connection.createStatement();
@@ -84,6 +88,10 @@ public class DepartamentoDAO implements IBaseDatos<Departamento> {
                 connection = Conexion.getConnection();
             } catch (URISyntaxException ex) {
                 Logger.getLogger(DepartamentoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(DepartamentoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(DepartamentoDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
 	    String query = " insert into Depto (id_depto,nom_depto)"  + " values (?,?)";
         PreparedStatement preparedStmt=null;
@@ -109,6 +117,10 @@ public class DepartamentoDAO implements IBaseDatos<Departamento> {
             try {
                 connection = Conexion.getConnection();
             } catch (URISyntaxException ex) {
+                Logger.getLogger(DepartamentoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(DepartamentoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
                 Logger.getLogger(DepartamentoDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
 		String query = "update Depto set nom_depto = ? where id_depto = ?";
@@ -139,6 +151,10 @@ public class DepartamentoDAO implements IBaseDatos<Departamento> {
             try {
                 connection = Conexion.getConnection();
             } catch (URISyntaxException ex) {
+                Logger.getLogger(DepartamentoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(DepartamentoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
                 Logger.getLogger(DepartamentoDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
 	   String query = "delete from Depto where id_depto = ?";
